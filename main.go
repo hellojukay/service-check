@@ -95,30 +95,29 @@ func init() {
 	flag.Parse()
 }
 
-var printFmt = "%-20s%-10s%-10s\n"
+var printFmt = "%-20s%-20s%-20s\n"
 
 func main() {
 	if len([]string(allService)) == 0 {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-	fmt.Printf(printFmt, "SERVICE", "ENABLED", "STATUS")
 	for _, service := range []string(allService) {
 		var unit = NewService(service)
 		if unit.IsEnabled() && unit.IsRunning() {
-			fmt.Printf(printFmt, service, "active", "enabled")
+			fmt.Printf(printFmt, service, color.GreenString("active"), color.GreenString("enabled"))
 			continue
 		}
 		if unit.IsEnabled() && (!unit.IsRunning()) {
-			fmt.Printf(printFmt, service, "inactive", "enabled")
+			fmt.Printf(printFmt, service, color.RedString("inactive"), color.GreenString("enabled"))
 			continue
 		}
 		if !unit.IsEnabled() && unit.IsRunning() {
-			fmt.Printf(printFmt, service, "active", "disabled")
+			fmt.Printf(printFmt, service, color.GreenString("active"), color.RedString("disabled"))
 			continue
 		}
 		if !unit.IsEnabled() && !unit.IsRunning() {
-			fmt.Printf(printFmt, service, "inactive", "disabled")
+			fmt.Printf(printFmt, service, color.RedString("inactive"), color.RedString("disabled"))
 			continue
 		}
 	}
