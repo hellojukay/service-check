@@ -21,8 +21,8 @@ jobs:
 
             - name: go build
               run: |
-                  apt-get update -y
-                  apt-get install upx -y
+                  sudo apt-get update -y
+                  sudo apt-get install upx -y
                   go build -ldflags='-s -w'
                   upx service-check
             - name: upload file
