@@ -1,2 +1,8 @@
 # service-check
-check systemd service status
+Check systemd Unit status
+
+![img](img.gif)
+# install
+```shell
+go get github.com/hellojukay/service-check
+```

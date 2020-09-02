@@ -6,6 +6,7 @@ import (
 	"github.com/fatih/color"
 	"os"
 	"os/exec"
+	"os/user"
 	"strings"
 )
 
@@ -93,6 +94,11 @@ var allService StringArray
 func init() {
 	flag.Var(&allService, "s", "all services you  want to check")
 	flag.Parse()
+	u, _ := user.Current()
+	if u.Uid != "0" {
+		fmt.Printf("%s\n", "promission denies , please run with root promission.")
+		os.Exit(1)
+	}
 }
 
 var printFmt = "%-20s%-20s%-20s\n"
